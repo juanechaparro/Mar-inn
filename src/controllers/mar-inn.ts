@@ -1,6 +1,10 @@
 import Register from '../models/register'
 
+let created  ;
+let registersList;
+
 export const MarinnController = {
+    
     createRegister: async (data: any) => {
        {
         const createData = {
@@ -20,10 +24,20 @@ export const MarinnController = {
     createdAt: new Date().valueOf(),
         }
         await new Register(createData).save()
+        created = createData
       }
-      return true
+      return created
     },
-    getRegisters:(filterCostumer) =>{
+    createdR: created,
+    getRegisters:  (filterCostumer) =>{
+
+           /* let filter= {}
+            if(filterCostumer){
+                filter = {identificationNumber:filterCostumer};
+            }
+            const registers = await Register.find(filter)
+             registersList= registers;
+        */
         return new Promise((resolve, reject)=> {
             let filter= {}
             if(filterCostumer){
@@ -31,14 +45,15 @@ export const MarinnController = {
             }
             const registers = Register.find(filter)
             .catch(e=>{
-                 reject(e)
+                  reject(e)
             })
             resolve (registers);
-        })
+         })
     },
-    updateRegister:(id, nightSetting)=>{
+    registersLists:registersList,
+    updateRegister:(id, mobile)=>{
         return new Promise(async(resolve, reject)=>{
-            if (!id || !nightSetting) {
+            if (!id || !mobile) {
                  reject('Invalid date');
                  return false;
              }
@@ -46,37 +61,47 @@ export const MarinnController = {
             const foundRegister =await Register.findOne({
                 _id : id
             });
-            foundRegister.nightSetting =nightSetting;
+            foundRegister.mobile =mobile;
            const newRegister = await foundRegister.save();
            return newRegister;
            }
 
           
-           resolve(result())
+           resolve(result)
          })
    },
-   deleteRegister:(id)=>{
-    return new Promise<void> ((resolve, reject) =>{
+   deleteRegister:async(id)=>{
+    
         if(!id){
-            reject ('invalid id');
-            return false;
+            return false
         }
-        const removeRegister = function (id){
-            return  Register.deleteOne({
+            return  await Register.deleteOne({
                   _id:id
               })
-          }
-        removeRegister(id)
-        .then(()=>{
-            resolve()
-        })
-        .catch(e =>{
-            reject(e)
-        })
+          
+
+        
+    
+    // return new Promise<void> ((resolve, reject) =>{
+    //     if(!id){
+    //         reject ('no id');
+    //         return false;
+    //     }
+    //     const removeRegister = function (id){
+    //         return  Register.deleteOne({
+    //               _id:id
+    //           })
+    //       }
+    //     removeRegister(id).then(()=>{
+    //         resolve()
+    //     })
+    //     .catch(e =>{
+    //         reject(e)
+    //     })
         
 
         
-    })
+    // })
    }
 
   }
