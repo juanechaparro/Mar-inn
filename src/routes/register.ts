@@ -29,11 +29,9 @@ app.get('/register/get', (req: Request, res: Response) => {
        
    })
 
-   app.patch('/:id',(req: Request, res: Response) => {
+   app.patch('/patch/:id',(req: Request, res: Response) => {
     MarinnController.updateRegister(req.params.id, req.body.mobile)
-     .then((data) => {
-        res.status(200).json({data})
-    })
+    res.status(200).json({})
        
    }
    )

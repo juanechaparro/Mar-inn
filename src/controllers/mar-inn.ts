@@ -26,6 +26,7 @@ export const MarinnController = {
         await new Register(createData).save()
         created = createData
       }
+      
       return created
     },
     createdR: created,
@@ -51,24 +52,29 @@ export const MarinnController = {
          })
     },
     registersLists:registersList,
-    updateRegister:(id, mobile)=>{
-        return new Promise(async(resolve, reject)=>{
-            if (!id || !mobile) {
-                 reject('Invalid date');
-                 return false;
-             }
-           const result = async()=>{
-            const foundRegister =await Register.findOne({
-                _id : id
-            });
-            foundRegister.mobile =mobile;
-           const newRegister = await foundRegister.save();
-           return newRegister;
-           }
+    updateRegister:async (id2, mobile2)=>{
+
+        await Register.findOneAndUpdate(
+            {_id:id2},
+            {mobile:mobile2}
+        )
+        // return new Promise(async(resolve, reject)=>{
+        //     if (!id || !mobile) {
+        //          reject('Invalid date');
+        //          return false;
+        //      }
+        //    const result = async()=>{
+        //     const foundRegister =await Register.findOne({
+        //         _id : id
+        //     });
+        //     foundRegister.mobile =mobile;
+        //    const newRegister = await foundRegister.save();
+        //    return newRegister;
+        //    }
 
           
-           resolve(result)
-         })
+        //    resolve(result)
+        //  })
    },
    deleteRegister:async(id)=>{
     
