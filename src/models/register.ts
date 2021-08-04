@@ -3,8 +3,12 @@ import mongoose from "mongoose";
 const RegisterModel = new mongoose.Schema({
   customerName: { type: String },
   customerLastName: { type: String },
+  email:  { type: String, required: true },
   mobile: { type: String, required: true },
   identificationNumber: { type: String },
+  identificationType: { type: String },
+  Ref: { type: String },
+  noRef : { type: String },
   nightSetting: {
     adults: { type: Number },
     kids: { type: Number },
@@ -16,7 +20,7 @@ const RegisterModel = new mongoose.Schema({
       paymentMethod: { type: String },
       paymentProof: { type: String },
       pendingPayment: { type: Number },
-      createdAt: { type: Date },
+      createdAt: { type: Date, default: new Date().valueOf() },
     },
   ],
   nightDays: [

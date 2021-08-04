@@ -11,8 +11,10 @@ export const MarinnController = {
      
     customerName: data.customerName,
     customerLastName: data.customerLastName,
-    mobile: data.mobile,
+    mobile: data.mobile,   
+    email: data.email,
     identificationNumber: data.identificationNumber,
+    identificationType:data.identificationType,
     nightSetting: {
         adults: data.adults,
         kids: data.kids,
