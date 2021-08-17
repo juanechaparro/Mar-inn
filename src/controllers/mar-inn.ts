@@ -15,14 +15,12 @@ export const MarinnController = {
     email: data.email,
     identificationNumber: data.identificationNumber,
     identificationType:data.identificationType,
-    nightSetting: {
-        adults: data.adults,
-        kids: data.kids,
-        price: data.price,
-    },
+    Ref: data.Ref,
+    noRef :data.noRef,
+    nightSetting:[data.nightSetting],
     payments: [data.payments],
     nightDays: [data.nightDays],
-    services: [data.services],
+    services: data.services,
     createdAt: new Date().valueOf(),
         }
         await new Register(createData).save()
@@ -53,12 +51,38 @@ export const MarinnController = {
             resolve (registers);
          })
     },
+    getRegistersById:  (filterCostumer) =>{
+
+      
+     return new Promise((resolve, reject)=> {
+         let filter= {}
+         if(filterCostumer){
+             filter = {_id:filterCostumer};
+         }
+         const registers = Register.find(filter)
+         .catch(e=>{
+               reject(e)
+         })
+         resolve (registers);
+      })
+ },
     registersLists:registersList,
-    updateRegister:async (id2, mobile2)=>{
+    updateRegister:async (id2, data: any)=>{
 
         await Register.findOneAndUpdate(
             {_id:id2},
-            {mobile:mobile2}
+            {   customerName: data.customerName,
+                customerLastName: data.customerLastName,
+                mobile: data.mobile,   
+                email: data.email,
+                identificationNumber: data.identificationNumber,
+                identificationType:data.identificationType,
+                Ref: data.Ref,
+                noRef :data.noRef,
+                nightSetting:[data.nightSetting],
+                payments: [data.payments],
+                nightDays: [data.nightDays],
+                services: data.services}
         )
         // return new Promise(async(resolve, reject)=>{
         //     if (!id || !mobile) {

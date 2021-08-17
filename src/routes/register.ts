@@ -22,15 +22,24 @@ app.get('/register/get', (req: Request, res: Response) => {
      MarinnController.getRegisters(filterCustomer).then((registers)=>{
         res.status(200).json(registers)
     })
-        
+
             // res.status(200).json(MarinnController.registersLists)
-
-        
-       
+   
    })
+   
 
+   app.get('/register/getById', (req: Request, res: Response) => {
+    // const bearerHeader = req.headers['authorization']
+    const filterCustomer = req.query._id ||null;
+     MarinnController.getRegistersById(filterCustomer).then((registers)=>{
+        res.status(200).json(registers)
+    })
+   
+   })
    app.patch('/patch/:id',(req: Request, res: Response) => {
-    MarinnController.updateRegister(req.params.id, req.body.mobile)
+    MarinnController.updateRegister(
+        req.params.id,
+        req.body)
     res.status(200).json({})
        
    }
@@ -40,7 +49,8 @@ app.get('/register/get', (req: Request, res: Response) => {
         res.status(200).send(`Registro ${req.params.id} eliminado`) 
     
    })
-
+    
+   
 
 }
 

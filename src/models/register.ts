@@ -9,11 +9,13 @@ const RegisterModel = new mongoose.Schema({
   identificationType: { type: String },
   Ref: { type: String },
   noRef : { type: String },
-  nightSetting: {
+  nightSetting: [
+    {
     adults: { type: Number },
     kids: { type: Number },
     price: { type: Number },
   },
+],
   payments: [
     {
       payed: { type: Number },
@@ -25,17 +27,18 @@ const RegisterModel = new mongoose.Schema({
   ],
   nightDays: [
     {
-      room: [{ type: String, required: false }],
+      rooms: [{room:{ type: String, required: false }}],
       day: { type: Date },
     },
   ],
   services: [
     {
-      payed: { type: Number },
-      paymentMethod: { type: String },
-      paymentProof: { type: String },
-      pendingPayment: { type: Number },
-      price: { type: Number },
+      serviceName:{ type: String },
+      servicesPayed: { type: Number },
+      servicesPaymentMethod: { type: String },
+      servicesPaymentProof: { type: String },
+      servicesPendingPayment: { type: Number },
+      servicesPrice: { type: Number },
     },
   ],
   createdAt: { type: Date, default: new Date().valueOf() },
